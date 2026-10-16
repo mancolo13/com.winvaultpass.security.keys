@@ -32,27 +32,26 @@ class _MainScreenState extends State<MainScreen> {
         backgroundColor: AppTheme.surfaceColor,
         indicatorColor: AppTheme.primaryColor.withValues(alpha: 0.2),
         destinations: [
-        NavigationDestination(
-          icon: const Icon(Icons.lock_outlined),
-          selectedIcon: const Icon(Icons.lock, color: AppTheme.primaryColor),
-          label: 'Vault',
-        ),
-        NavigationDestination(
-          icon: const Icon(Icons.password_outlined),
-          selectedIcon: const Icon(Icons.password, color: AppTheme.primaryColor),
-          label: 'Generator',
-        ),
-        NavigationDestination(
-          icon: const Icon(Icons.security_outlined),
-          selectedIcon: const Icon(Icons.security, color: AppTheme.primaryColor),
-          label: 'Audit',
-        ),
-        NavigationDestination(
-          icon: const Icon(Icons.sync_outlined),
-          selectedIcon: const Icon(Icons.sync, color: AppTheme.primaryColor),
-          label: 'Sync',
-        ),
-
+          NavigationDestination(
+            icon: const Icon(Icons.lock_outline),
+            selectedIcon: const Icon(Icons.lock, color: AppTheme.primaryColor),
+            label: 'Vault',
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.vpn_key_outlined),
+            selectedIcon: const Icon(Icons.vpn_key, color: AppTheme.primaryColor),
+            label: '2FA',
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.password_outlined),
+            selectedIcon: const Icon(Icons.password, color: AppTheme.primaryColor),
+            label: 'Generator',
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.security_outlined),
+            selectedIcon: const Icon(Icons.security, color: AppTheme.primaryColor),
+            label: 'Security',
+          ),
         ],
       ),
     );

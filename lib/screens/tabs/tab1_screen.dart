@@ -2,25 +2,18 @@ import 'package:flutter/material.dart';
 import '../../theme/app_theme.dart';
 import '../../services/routing_service.dart';
 
-class Tab1Screen extends StatefulWidget {
+
+class Tab1Screen extends StatelessWidget {
   const Tab1Screen({super.key});
-
-  @override
-  State<Tab1Screen> createState() => _Tab1ScreenState();
-}
-
-class _Tab1ScreenState extends State<Tab1Screen> {
-  int _score = 92;
-  bool _active = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Win • Vault'),
+        title: const Text('Win • KeyVault'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.stars_rounded, color: AppTheme.primaryColor),
+            icon: const Icon(Icons.add, color: AppTheme.primaryColor),
             onPressed: () => RoutingService.openRegistrationUrl(),
           ),
         ],
@@ -29,83 +22,69 @@ class _Tab1ScreenState extends State<Tab1Screen> {
         padding: const EdgeInsets.all(16),
         children: [
           Container(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(22),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [AppTheme.primaryColor.withValues(alpha: 0.3), AppTheme.surfaceColor],
+                colors: [AppTheme.primaryColor.withValues(alpha: 0.25), AppTheme.surfaceColor],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: AppTheme.primaryColor.withValues(alpha: 0.4)),
+              borderRadius: BorderRadius.circular(22),
+              border: Border.all(color: AppTheme.primaryColor.withValues(alpha: 0.35)),
             ),
-            child: Column(
+            child: const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Vault Health', style: const TextStyle(fontSize: 16, color: Colors.white70)),
-                    Switch(
-                      value: _active,
-                      activeThumbColor: AppTheme.primaryColor,
-                      onChanged: (v) => setState(() => _active = v),
-                    ),
+                    Text('SECURITY SCORE', style: TextStyle(color: Colors.white70, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2)),
+                    Icon(Icons.shield, color: AppTheme.primaryColor, size: 20),
                   ],
                 ),
-                const SizedBox(height: 12),
-                Text('$_score%', style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 8),
-                LinearProgressIndicator(
-                  value: 0.92,
-                  backgroundColor: Colors.white12,
-                  color: AppTheme.primaryColor,
-                  minHeight: 8,
-                  borderRadius: BorderRadius.circular(4),
-                ),
+                SizedBox(height: 8),
+                Text('98 / 100', style: TextStyle(fontSize: 34, fontWeight: FontWeight.w900, color: AppTheme.secondaryColor)),
+                SizedBox(height: 4),
+                Text('42 Encrypted Credentials • 0 Compromised', style: TextStyle(color: Colors.white, fontSize: 13)),
               ],
             ),
           ),
           const SizedBox(height: 16),
-          Row(
-            children: [
-              Expanded(child: _buildMetric('Total', '1,840', Icons.analytics)),
-              const SizedBox(width: 12),
-              Expanded(child: _buildMetric('Active', '99.2%', Icons.speed)),
-            ],
-          ),
-          const SizedBox(height: 16),
-          ...List.generate(3, (i) => Card(
-            color: AppTheme.surfaceColor,
-            margin: const EdgeInsets.only(bottom: 10),
-            child: ListTile(
-              leading: CircleAvatar(
-                backgroundColor: AppTheme.primaryColor.withValues(alpha: 0.2),
-                child: Icon(Icons.check, color: AppTheme.primaryColor),
-              ),
-              title: Text('Vault Priority ${i + 1}'),
-              subtitle: Text('Progress: Normal • Level ${i + 1}'),
-              trailing: const Icon(Icons.chevron_right, color: Colors.white38),
-              onTap: () => setState(() => _score = (_score + 1) % 100),
-            ),
-          )),
+          const Text('Recent Vault Logins', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 10),
+          _itemTile('GitHub Inc.', 'alex@dev.org', '••••••••••••', Icons.code),
+          _itemTile('Google Workspace', 'alex.work@corp.com', '••••••••••••', Icons.cloud),
+          _itemTile('Amazon AWS Console', 'root@infra.net', '••••••••••••', Icons.storage),
         ],
       ),
     );
   }
 
-  Widget _buildMetric(String t, String v, IconData ic) {
+  Widget _itemTile(String site, String user, String pass, IconData ic) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(color: AppTheme.surfaceColor, borderRadius: BorderRadius.circular(16)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
         children: [
-          Icon(ic, color: AppTheme.secondaryColor, size: 28),
-          const SizedBox(height: 8),
-          Text(t, style: const TextStyle(color: Colors.white60, fontSize: 13)),
-          Text(v, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          CircleAvatar(
+            backgroundColor: AppTheme.primaryColor.withValues(alpha: 0.2),
+            child: Icon(ic, color: AppTheme.primaryColor),
+          ),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(site, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15), maxLines: 1, overflow: TextOverflow.ellipsis),
+                Text(user, style: const TextStyle(color: Colors.white60, fontSize: 12)),
+              ],
+            ),
+          ),
+          const Icon(Icons.copy, size: 18, color: Colors.white54),
         ],
       ),
     );
   }
 }
+
